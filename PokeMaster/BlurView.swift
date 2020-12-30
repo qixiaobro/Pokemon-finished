@@ -11,7 +11,6 @@ import UIKit
 
 struct BlurView: UIViewRepresentable {
     let style: UIBlurEffect.Style
-    let view = UIView(frame: .zero)
     
     init(style: UIBlurEffect.Style) { print("Init")
      self.style = style
@@ -19,7 +18,7 @@ struct BlurView: UIViewRepresentable {
     
     func makeUIView(context: UIViewRepresentableContext<BlurView>) -> UIView {
         print("makeUIView")
-        
+        let view = UIView(frame: .zero)
         view.backgroundColor = .clear
         
         let blurEffect = UIBlurEffect(style: style)

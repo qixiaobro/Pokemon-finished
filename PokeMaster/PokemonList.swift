@@ -52,12 +52,12 @@ struct PokemonList: View {
                 }
             }
         }
-        .overlay(
-            VStack {
-                Spacer()
-                PokemonInfoPanel(model: PokemonViewModel.sample(id: 1))
-            }.edgesIgnoringSafeArea(.bottom)
-        )
+//        .overlay(
+//            VStack {
+//                Spacer()
+//                PokemonInfoPanel(model: PokemonViewModel.sample(id: 1))
+//            }.edgesIgnoringSafeArea(.bottom)
+//        )
     }
 }
 

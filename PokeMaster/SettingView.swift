@@ -47,9 +47,25 @@ extension Settings.AccountBehavior {
     }
 }
 
+extension AppState.Settings.Sorting {
+    var text: String {
+        switch self {
+        case .id: return "ID"
+        case .name: return "名字"
+        case .color: return "颜色"
+        case .favorite: return "最爱"
+        }
+    }
+}
+
 
 
 struct SettingView: View {
+    @EnvironmentObject var store: Store
+    var settingsBinding: Binding<AppState.Settings> {
+        $store.appState.settings
+    }
+    
     @ObservedObject var settings = Settings()
     var body: some View {
         Form {
@@ -83,13 +99,13 @@ struct SettingView: View {
     
     var optionSection: some View {
         Section(header: Text("选项")){
-            Toggle("显示英文名", isOn: $settings.showEnglishName)
-            Picker("排序方式", selection: $settings.sorting) {
-                ForEach(Settings.Sorting.allCases, id: \.self) {
+            Toggle("显示英文名", isOn: settingsBinding.showEnglishName)
+            Picker("排序方式", selection: settingsBinding.sorting) {
+                ForEach(AppState.Settings.Sorting.allCases, id: \.self) {
                     Text($0.text)
                 }
             }
-            Toggle("只显示收藏", isOn: $settings.showFavoriteOnly)
+            Toggle("只显示收藏", isOn: settingsBinding.showFavoriteOnly)
         }
     }
     
@@ -106,6 +122,8 @@ struct SettingView: View {
 
 struct SettingView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingView()
+        let store = Store()
+        store.appState.settings.sorting = .color
+        return SettingView().environmentObject(store)
     }
 }
