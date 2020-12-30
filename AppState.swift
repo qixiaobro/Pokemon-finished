@@ -21,5 +21,25 @@ extension AppState {
         var showEnglishName = true
         var sorting = Sorting.id
         var showFavoriteOnly = false
+        
+        enum AccountBehavior: CaseIterable {
+            case register, login
+        }
+        
+        var accountBehavior = AccountBehavior.login
+        var email = ""
+        var password = ""
+        var verifyPassword = ""
+        
+        var loginUser: User?
+    }
+}
+
+struct User: Codable {
+    var email: String
+    var favoritePokemonIDs: Set<Int>
+    
+    func isFavoritePokemon(id: Int) -> Bool {
+        favoritePokemonIDs.contains(id)
     }
 }
